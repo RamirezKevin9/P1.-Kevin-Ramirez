@@ -1,11 +1,19 @@
-# P1.-Kevin-Ramirez
-Trabajo Practico N°1: Escrituras y Estructuras
-Desarrollar un código y un esquema electrónico básico que haga una secuencia de luces con 3 leds RGB.
+Trabajo Practico N°2: Lectura análoga y Monitor Serial
+Ignacio Federico Traverso Raiz
+•
+17 abr (Editado: 17 abr)
+100 puntos
+Colocar:
+1 pulsador
+3 potenciómetros 
+1 LED RGB. 
+Cuando se pulsa una vez el pulsador,  se ejecuta un tiempo de espera (pausa en la que el código no haga nada) con duración de 10s en donde se le da tiempo al usuario a girar cada potenciómetro, luego el LED RGB se prendera de manera análoga con cada valor de color correspondiente al de cada uno de los potenciómetros.
+El Led debe de quedar prendido durante 10s luego apagarse y que una vez pulsado otra vez el botón la secuencia se repita.
 
-La secuencia es la siguiente: 
-Prende el 1°led en color rojo fuerte. (De forma analógica)
-Se apaga el 1° led y se prende el 2° led en color magenta(de forma digital)
-Se apaga el 2° led y se prende el 3° led en color cian(De forma analógica y clarito/tenue)
-Se apaga el 3° led y se prende el 1° led  devuelta y así infinitamente.
-Entre que se apaga un led y se prende el siguiente hacer que parpadeen los 3 led 4 veces rápido (100ms) en color naranja.
+
+Cuando se toca el botón mostrar solo 1 vez el mensaje:
+     - "Tiene 10 s para configurar el color del led...."
+Cuando ya se acabe el tiempo y se muestre el color del led mostrar una sola ves el mensaje:
+     -"El led esta usando esta configuración de colores RGB:  ( xx; xx ; xx )"  Siendo cada xx los valores de 0 a 255 de cada color
+
 Entrega a través de su repositorio de GitHub de Proyecto Informático, En una branch con el nombre del TP, Tiene que estar el código en formato .ino, una instantánea del esquema y la consigna pegada en el archivo README.
