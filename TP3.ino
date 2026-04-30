@@ -1,64 +1,68 @@
-#define R 11
-#define A 10
-#define V 6
-#define PR A0
-#define PA A1
-#define PV A2
-#define Boton 2
-int ValorR;
-int ValorV;
-int Valor A;
-bool ValorBoton;
+// Pines
+const int pinTemp = A0;
+const int pinLuz = A1;
 
-void setup()
-{
-  pinMode(Boton,INPUT);
-  pinMode(R,OUTPUT);
-  pinMode(A,OUTPUT);
-  pinMode(V,OUTPUT);
-  Serial.begin(9800);
+const int pinR = 9;
+const int pinG = 10;
+const int pinB = 11;
+
+// Variables
+float temperatura = 0;
+int valorLuz = 0;
+float porcentajeLuz = 0;
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(pinR, OUTPUT);
+  pinMode(pinG, OUTPUT);
+  pinMode(pinB, OUTPUT);
 }
 
-void loop()
-{
-  ValorBoton digitalRead(Boton);
-  delay(100);
-  if(ValorBoton == LOW){
-   Serial.println("Se prendera en 10 segundos");
-    dealy(10000);
-    ValorR = analogRead(PR);
-    ValorV = analogRead(PV);
-    ValorA = analogRead(PA);
-    ValorR = map(ValorR,0,1023,0,255);
-    ValorA = map(ValorA,0,1023,0,255);
-    ValorV = map(ValorV,0,1023,0,255);
-    
-    Leer();
-    Serial.print("El LED esta usando esta config");
-    Serial.println(ValorR);
-    Serial.println(ValorV);
-    Serial.println(ValorA);
-    
-    PrendeApaga();
+void loop() {
+
+  // Leer temperatura (TMP36)
+  int lecturaTemp = analogRead(pinTemp);
+  float voltaje = lecturaTemp * (5.0 / 1023.0);
+  temperatura = (voltaje - 0.5) * 100.0;
+
+  // ===== Leer luz (LDR)
+  valorLuz = analogRead(pinLuz);
+
+  // (Convertir a porcentaje)
+  porcentajeLuz = map(valorLuz, 0, 1023, 0, 100);
+
+  // Mostrar datos
+  Serial.print("El nivel de luz actual es: ");
+  Serial.print(porcentajeLuz);
+  Serial.println("%");
+
+  Serial.print("La temperatura actual es: ");
+  Serial.print(temperatura);
+  Serial.println(" ºC");
+
+  // Control del LED RGB
+  // Apagar primero
+  analogWrite(pinR, 0);
+  analogWrite(pinG, 0);
+  analogWrite(pinB, 0);
+
+  // Solo si la luz está entre 30% y 70%
+  if (porcentajeLuz >= 30 && porcentajeLuz <= 70) {
+
+    if (temperatura > 90) {
+      // ROJO
+      analogWrite(pinR, 255);
+    }
+    else if (temperatura < 18) {
+      // AZUL
+      analogWrite(pinB, 255);
+    }
+    else {
+      // VERDE
+      analogWrite(pinG, 255);
+    }
   }
-  
-}
 
-void PrendeApaga(){
- analogWrite(R,ValorR);
- analogWrite(V,ValorV);
- analogWrite(A,ValorA);
- delay(1000);
- analogWrite(R,0);
- analogWrite(V,0);
- analogWrite(A,0);
-}
-
-void Leer (){
- ValorR = analogRead(PR);
- ValorV = analogRead(PV);
- ValorA = analogRead(PA);
- ValorR = map(ValorR,0,1023,0,255);
- ValorV = map(ValorV,0,1023,0,255);
- ValorA = map(ValorA,0,1023,0,255);
+  delay(1000);
 }
