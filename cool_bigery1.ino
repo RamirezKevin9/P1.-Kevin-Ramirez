@@ -49,7 +49,7 @@ void ejercicio1() {
 
   int lista[] = {10, 20, 30, 40, 50};
   int nueva[5];
-  int factor = 3;
+  int factor = 5;
 
   for (int i = 0; i < 5; i++) {
 
@@ -57,7 +57,7 @@ void ejercicio1() {
 
     Serial.println(nueva[i]);
 
-    int brillo = constrain(nueva[i], 0, 255);
+    int brillo = nueva[i];
 
     color(brillo, brillo, brillo);
 
